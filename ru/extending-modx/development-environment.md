@@ -5,8 +5,8 @@ _old_uri: 2.x/developing-in-modx/overview-of-modx-development/setting-up-a-devel
 note: Эта страница незавершена. Вы можете помочь, расширив это.
 ---
 
-Depending on what you want to build, your requirements for a development environment may be slightly different.
+В зависимости от того, что вы хотите разработать, ваши требования к среде разработки могут немного отличаться.
 
 Здесь мы опишем более или менее стандартный подход к среде разработки, где для разработки одного или нескольких дополнений используется одна установка MODX. При создании сайтов или более сложных приложений вполне допустимо делать это по-другому.
 
-This documentation needs to be (re)written as the previous version was not useful. The [Building an Extra in MODX Revolution](extending-modx/tutorials/developing-an-extra) is a good start, explaining the different concepts in tutorial form.
+Эта документация должна быть (пере)записана, поскольку предыдущая версия была бесполезна. [Создание дополнения в MODX Revolution](extending-modx/tutorials/developing-an-extra) - хорошее начало, объясняющее различные концепции в форме учебника.
