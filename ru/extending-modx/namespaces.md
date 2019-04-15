@@ -8,21 +8,21 @@ _old_uri: 2.x/developing-in-modx/advanced-development/namespaces
 
 Пространства имен являются организационными элементами для компонентов. Они связывают лексиконные строки и пакеты друг с другом, а также предоставляют Revolution основной способ узнать, какие объекты принадлежат какому пакету.
 
-## Usage
+## Использование
 
 Revolution использует пути к пространствам имен, чтобы определить, куда загружать файлы компонентов сторонних производителей для пользовательских страниц менеджера, а также управлять строками пользовательских языков для этих компонентов сторонних производителей.
 
-For example, if a Namespace called "quip" has a path of "/www/modx/core/components/quip/", then when the CMP is loaded from the [Action](extending-modx/menus/actions "Actions and Menus") with a value on the controller of "index", it will look for the index controller file in the namespace path, ie: "/www/modx/core/components/quip/index.php". This will then load in place of the Custom Manager Page. A useful value for the controller on the Action is "controllers/index", so that you can point it to "/www/modx/core/components/quip/controllers/index.php" (which is the standard practice for paths for Extras in MODX).
+Например, если пространство имен с именем «quip» имеет путь «/www/modx/core/components/quip/», то когда CMP загружается из [Action](extending-modx/menus/actions "Actions and Menus") со значением на контроллере из "index", он будет искать файл контроллера индекса в пути к пространству имен, то есть: "/www/modx/core/components/quip/index.php". Затем он будет загружен вместо пользовательской страницы менеджера. Полезное значение для контроллера в действии - «controllers/index», так что вы можете указать его на «/www/modx/core/components/quip/controllers/index.php» (что является стандартной практикой для путей для дополнения в MODX).
 
 ### Лексиконы в пространствах имен
 
-Namespaces can be used to isolate Lexicons and Lexicon Topics. For example, when loading a Lexicon, you can specify the Namespace of the topic prior to the name of the topic with a colon. For example, to load the "comment" topic for the "quip" Namespace:
+Пространства имен могут быть использованы для выделения лексиконов и тем лексиконов. Например, при загрузке лексикона вы можете указать пространство имен темы перед именем темы с двоеточием. Например, чтобы загрузить тему «comment» для пространства имен «quip»:
 
 ```php
 $modx->lexicon->load('quip:comment');
 ```
 
-Assuming we're in English, this will look for the lexicon/en/comment.inc.php file in the Namespace path for Quip. This allows Lexicon topics to be loaded dynamically based on the Namespace path, rather than requiring the topic files to be put inside the MODX core directories.
+Предполагая, что мы используем английский язык, система будет искать файл lexicon/en/comment.inc.php в пути пространства имен для Quip. Это позволяет динамически загружать темы Lexicon в соответствии с путем к пространству имен, а не требовать помещения файлов тем в основные каталоги MODX.
 
-- [Internationalization](extending-modx/internationalization "Internationalization")
-- [Settings](_legacy/administering-your-site/settings "Settings")
+- [Интернационализация](extending-modx/internationalization "Internationalization")
+- [Настройки](_legacy/administering-your-site/settings "Settings")
