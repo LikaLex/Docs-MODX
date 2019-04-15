@@ -1,7 +1,6 @@
 ---
 title: Пространства имен
-_old_id: '208'
-_old_uri: 2.x/developing-in-modx/advanced-development/namespaces
+translation: extending-modx/namespaces
 ---
 
 ## Что такое пространства имен?
