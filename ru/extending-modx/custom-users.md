@@ -4,29 +4,29 @@ _old_id: '355'
 _old_uri: 2.x/developing-in-modx/advanced-development/extending-moduser
 ---
 
-## Intended Audience
+## Целевая аудитория
 
-This article is for developers who are looking to add additional data to their MODX users and functionality to the related classes.
+Эта статья предназначена для разработчиков, которые хотят добавить дополнительные данные своим пользователям MODX и функциональные возможности для связанных классов.
 
-Although this is possible via a less integrated approach by simply adding a database table that includes a foreign key relation back to the original MODX users table, the approach outlined here is for a more thorough integration via extending the core modUser class.
+Хотя это возможно с помощью менее интегрированного подхода путем простого добавления таблицы базы данных, которая включает отношение внешнего ключа, к исходной таблице пользователей MODX, описанный здесь подход предназначен для более тщательной интеграции с помощью расширения базового класса modUser.
 
 Приведенные здесь шаги носят технический характер и основаны на базовой платформе MODX xPDO. Вы должны быть знакомы с объектами и методами xPDO (например, [getObject](extending-modx/xpdo/class-reference/xpdo/xpdo.getobject "xPDO.getObject")), прежде чем пытаться использовать это руководство.
 
-### See Also
+### Смотрите также
 
 - [Обратный инжиниринг классов xPDO из существующей таблицы базы данных](extending-modx/xpdo/custom-models/generating-the-model/reverse-engineer "Reverse Engineer xPDO Classes from Existing Database Table")
-- [More Examples of xPDO XML Schema Files](extending-modx/xpdo/custom-models/defining-a-schema/more-examples "More Examples of xPDO XML Schema Files")
+- [Дополнительные примеры файлов схемы XML xPDO](extending-modx/xpdo/custom-models/defining-a-schema/more-examples "More Examples of xPDO XML Schema Files")
 - [Генерация кода модели](extending-modx/xpdo/custom-models/generating-the-model "Generating the Model Code")
 
 ## Общее представление
 
-By extending the MODx Revolution authentication layer we can build very complex and varied user subsystems, e.g. for social networking, user management systems, or other applications not yet conceptualized. This ability to extend the modUser class is just one example of how to extend a core class – a similar approach could be used to extend any MODX core class.
+Расширяя уровень аутентификации MODx Revolution, мы можем создавать очень сложные и разнообразные пользовательские подсистемы, например, для социальных сетей, систем управления пользователями или других приложений, которые еще не концептуализированы. Эта способность расширять класс modUser является лишь одним примером того, как расширять базовый класс - аналогичный подход может быть использован для расширения любого базового класса MODX.
 
-## Purpose
+## Цель
 
-Extending modUser is for those situations when user authentication or user interaction need to be extended or enhanced, e.g. for easier custom authentication.
+Расширение modUser предназначено для тех ситуаций, когда необходимо расширить или улучшить аутентификацию пользователя или взаимодействие с пользователем, например, для упрощения пользовательской аутентификации.
 
-## The Rules
+## Правила
 
 Расширение modUser *не* означает, что мы добавляем что-либо в таблицу *modx*_users в базе данных. Вместо этого мы будем добавлять отдельную связанную таблицу, привязанную к исходной таблице через внешний ключ. Ни в коем случае расширенное приложение не должно пытаться полностью заменить класс modUser. Мы используем класс modUser в качестве нашей основы. Единственный признак того, что пользователь был расширен, будет найден путем изменения class_key с «modUser» на расширенное имя класса.
 
@@ -36,13 +36,13 @@ MODx Revolution уже работает с пользователями и, ве
 
 Наконец, ознакомьтесь с [modUser](developing-in-modx/other-development-resources/class-reference/moduser "modUser"), прежде чем начинать программировать. Вы можете предположить, что некоторые методы не являются взаимно-однозначными, например, атрибуты, которые можно назначать для контекста, ресурса и т.д. Обычно для доступа к методам modUser используются указания modUser.
 
-## Steps to extending modUser
+## Шаги к расширению modUser
 
-### 1. ) Create the schema and generate a model
+### 1.) Создайте схему и сгенерируйте модель
 
-The first thing we need to accomplish, is to create an extended user schema which extends modUser. Please note that there is no aggregate relation upwards from your "main" class which is extending modUser.
+Первое, что нам нужно сделать, это создать расширенную пользовательскую схему, которая расширяет modUser. Обратите внимание, что нет никакого агрегатного отношения вверх от вашего "основного" класса, который расширяет modUser
 
-#### Simple Example
+#### Простой пример
 
 Самый простой пример, который мы можем себе представить, - это желание добавить один дополнительный атрибут к пользовательским данным. В базе данных это будет означать, что у нас есть отдельная таблица с 2 столбцами: одна для отношения внешнего ключа обратно к таблице **modx_users** и другой столбец, содержащий наш новый «дополнительный» атрибут, например, *facebook_url*:
 
@@ -94,13 +94,13 @@ The first thing we need to accomplish, is to create an extended user schema whic
 </model>
 ```
 
-You will need to parse and create the model map associated with this schema. As this process is out of the scope of this topic, please refer to [Using Custom Database Tables in your 3rd Party Components](extending-modx/tutorials/using-custom-database-tables "Using Custom Database Tables in your 3rd Party Components") for further information.
+Вам нужно будет проанализировать и создать карту модели, связанную с этой схемой. Поскольку этот процесс выходит за рамки данной темы, обратитесь к разделу «[Использование пользовательских таблиц базы данных в ваших сторонних компонентах](extending-modx/tutorials/using-custom-database-tables "Using Custom Database Tables in your 3rd Party Components")» для получения дополнительной информации.
 
-### 2.) Edit the extuser.class.php
+### 2.) Отредактируйте файл extuser.class.php
 
 Чтобы получить доступ к расширенному классу, мы должны сообщить modUser, что данный пользователь был расширен. Таблица *modx*_users в базе данных содержит поле специально для этой цели: class_key. Значением по умолчанию в этом поле является modUser. Когда пользователи добавляются на ваш сайт с использованием вашего расширения, нам нужно «принудительно» ввести имя «основного» класса в схеме, а именно extUser в нашем примере.
 
-Edit the extuser.class.php file created when you generated the model. The specific file is the one found in the top of the model tree (you should see a mysql directory) in this same folder. Edit the file to resemble the following:
+Отредактируйте файл extuser.class.php, созданный при создании модели. Конкретный файл находится в верхней части дерева модели (вы должны увидеть каталог mysql) в этой же папке. Отредактируйте файл, чтобы он выглядел следующим образом:
 
 ```php
 <?php
@@ -127,11 +127,11 @@ class extUser extends modUser {
 ,{"extendeduser":{"path":"[[++core_path]]components/extendeduser/model/"}}
 ```
 
-#### If the key does not exists
+#### Если ключ не существует
 
 - Создайте новый системный параметр с названием extension_packages
-- Key of extension_packages
-- Fieldtype: Textfield
+- Ключ extension_packages
+- Тип поля: Текстовое поле
 - Значение:
 
 ```php
@@ -142,9 +142,9 @@ class extUser extends modUser {
 
 Основная причина расширения базового класса заключается в том, чтобы вы могли легче взаимодействовать со своими расширенными данными. Таким образом, в какой-то момент в сниппете, плагине или пользовательских страницах менеджера (CMP, Custom Manager Page) вы будете работать с новыми данными.
 
-#### Simple Example
+#### Простой пример
 
-Here's how you might interact with your extended data in a Snippet:
+Вот как вы можете взаимодействовать со своими расширенными данными в сниппете:
 
 ```php
 $modx->addPackage('extendeduser', MODX_CORE_PATH . 'components/extendeduser/model/', 'ext_');
@@ -154,7 +154,7 @@ $data = $user->getOne('Data'); // используйте псевдоним из
 return print_r($data->toArray(), true);
 ```
 
-#### More complex example
+#### Более сложный пример
 
 ```php
 <?php
@@ -215,9 +215,9 @@ if (!class_exists('Sampleclass')) {
 }
 ```
 
-#### 5.) Accessing the class
+#### 5.) Доступ к классу
 
-In our example we will be accessing our extended user throughout our site, therefore we load it as a service as shown in the following example:
+В нашем примере мы будем обращаться к нашему расширенному пользователю по всему сайту, поэтому мы загружаем его как сервис, как показано в следующем примере:
 
 ```php
 <?php
@@ -231,9 +231,9 @@ return;
 
 ## Стоит отметить
 
-1. Any pre existing user, will still have modUser as the class_key and therefore will **not** be extended or produce user objects of type extUser unless you change it
+1. Любой ранее существующий пользователь по-прежнему будет иметь modUser в качестве class_key и, следовательно, **не** будет расширяться или создавать пользовательские объекты типа extUser, если вы не измените его.
 2. Дважды проверьте файл modx.mysql.schema.xml, чтобы убедиться, что вы не используете классы или псевдонимы, которые он уже использует, поскольку ваш файл заменит modUser по умолчанию, запрещающий вам доступ к таким элементам, как атрибуты пользователя (с псевдонимом Profile)
-3. The extUser will **not** have a table created in the database, but the attached relations will
+3. У extUser **не** будет таблицы, созданной в базе данных, но прикрепленные отношения будут
 4. Таблица(ы) расширенных классов **должна(ы)** находиться в той же базе данных, что и обычная таблица *modx*_users
 5. Признаки ошибки в шаге 3 (путь extension_packages):  
     1. Любой пользователь с class_key extUser вернет ошибку при входе в систему: «Пользователь не может быть найден ...». Если это администратор, обратитесь напрямую к вашей базе данных, верните ключ_класса в modUser, войдите в систему правильно, а затем измените путь на правильное представление пути.
@@ -247,28 +247,28 @@ return;
 
 Вполне возможно иметь несколько активных расширенных систем ModUser одновременно. Было бы даже возможно расширить rpx расширение Джейсона Коварда в гибридную систему, используя преимущества обеих систем. Также вполне возможно иметь несколько расширенных приложений modUser, работающих автономно. Это может быть сделано, следуя подобному процессу для каждого из ваших расширений, изменяя только поле «class_key», чтобы отразить расширенный класс, принадлежащий каждому соответствующему пользователю.
 
-## Suggested additional considerations
+## Предлагаемые дополнительные соображения
 
 Файлы моделей можно редактировать с помощью методов и описаний. Взгляните на большую часть моделей MODx / xPDO, и вы увидите, как широко это сделано.
 
 Этот процесс может быть автоматизирован и записан при входе пользователя. Для краткости лучше всего показать вам работу splittingred на github, где он предоставляет реальное приложение:
 
-The plugins:
+Плагины:
 
 - [http://github.com/splittingred/modActiveDirectory/blob/master/core/components/activedirectory/elements/plugins/plugin.activedirectory.php](http://github.com/splittingred/modActiveDirectory/blob/master/core/components/activedirectory/elements/plugins/plugin.activedirectory.php)
 
-The events:
+События:
 
 - [http://github.com/splittingred/modActiveDirectory/blob/master/core/components/activedirectory/elements/events/onauthentication.php](http://github.com/splittingred/modActiveDirectory/blob/master/core/components/activedirectory/elements/events/onauthentication.php)
 - [http://github.com/splittingred/modActiveDirectory/blob/master/core/components/activedirectory/elements/events/onusernotfound.php](http://github.com/splittingred/modActiveDirectory/blob/master/core/components/activedirectory/elements/events/onusernotfound.php)
 
-## Extended modUser Classes currently Available
+## Доступны расширенные классы modUser
 
 [modActiveDirectory](http://github.com/splittingred/modActiveDirectory) - это приложение, которое обеспечивает взаимодействие с контроллером домена Microsoft
 
 [Расширение rpx](http://github.com/opengeek/engaged) позволяет людям войти через Facebook и другие социальные сети
 
-## Modifying class_key
+## Изменение class_key
 
 Всякий раз, когда вы изменяете ключ class_key для встроенного объекта MODX, вы должны знать, как меняется поведение. Ключ class_key влияет на то, какие агрегаты и композиты доступны объекту. Например, если у пользователя есть class_key «extUser», вы все равно можете получить объект, используя родительский класс:
 
@@ -278,7 +278,7 @@ $User = $modx->getObject('modUser', 123);
 $User = $modx->getObject('extUser', 123);
 ```
 
-However, the aggregates or composite relationships depend on the *stored value* of the class_key.
+Тем не менее, агрегаты или составные отношения зависят от *сохраненного значения* class_key.
 
 ```php
 $Data = $modx->newObject('Userdata');
