@@ -1,7 +1,6 @@
 ---
 title: Расширения для пользователей
-_old_id: '355'
-_old_uri: 2.x/developing-in-modx/advanced-development/extending-moduser
+translation: extending-modx/custom-users
 ---
 
 ## Целевая аудитория
@@ -215,7 +214,7 @@ if (!class_exists('Sampleclass')) {
 }
 ```
 
-#### 5.) Доступ к классу
+### 5.) Доступ к классу
 
 В нашем примере мы будем обращаться к нашему расширенному пользователю по всему сайту, поэтому мы загружаем его как сервис, как показано в следующем примере:
 
