@@ -1,8 +1,7 @@
 ---
 title: Настройка среды разработки
-_old_id: '282'
-_old_uri: 2.x/developing-in-modx/overview-of-modx-development/setting-up-a-development-environment
-note: Эта страница незавершена. Вы можете помочь, расширив это.
+translation: extending-modx/development-environment
+note: Эта страница незавершена. Вы можете помочь, расширив ее.
 ---
 
 В зависимости от того, что вы хотите разработать, ваши требования к среде разработки могут немного отличаться.
