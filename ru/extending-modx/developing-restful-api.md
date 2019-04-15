@@ -1,14 +1,13 @@
 ---
 title: Разработка RESTful API
-_old_id: '1728'
-_old_uri: 2.x/developing-in-modx/advanced-development/developing-rest-servers
+translation: extending-modx/developing-restful-api
 ---
 
 В MODX 2.3 появился удобный метод разработки API-интерфейсов RESTful поверх MODX. Это делается с помощью класса modRestService и производных modRestController. Он поддерживает множество интересных функций для взаимодействия с экземплярами xPDOObject. Цель этого документа - предоставить вам информацию, необходимую для создания собственного API.
 
 ## Рекомендуемое предварительное чтение
 
-Перед созданием RESTful API полезно знать, что такое RESTful API и как они должны работать. В Интернете доступно множество ресурсов, и "[Разработка API, которые вы не будете ненавидеть](https://leanpub.com/build-apis-you-wont-hate)" автора Phil Sturgeon - это отличная (электронная) книга, которую полезно почитать.
+Перед созданием RESTful API полезно знать, что такое RESTful API и как это должно работать. В Интернете доступно множество ресурсов, и "[Разработка API, который вы не будете ненавидеть](https://leanpub.com/build-apis-you-wont-hate)" автора Phil Sturgeon - это отличная (электронная) книга, которую полезно почитать.
 
 ## В двух словах
 
@@ -147,4 +146,4 @@ class MyControllerItems extends modRestController {
 - PUT /items/5: `modRestController.put()`
 - DELETE /items/5: `modRestController.delete()`
 
-Эти методы по умолчанию делают то, что вы ожидаете от них, с некоторой разумной обработкой ошибок и - по большей части - не нуждаются в настройке. Существуют также такие методы, как `modRestController.beforePost()`, <code data-parent-segment-tag-id="1915307" data-md-type="codespan">modRestController.beforePut(){/ code1}, `modRestController.beforeDelete()`, которые позволяют предотвратить действие (создание, обновление или удаление объекта соответственно) путем возврата false. Обсуждаемый объект доступен через `$this->object`, так что вы можете убедиться, что у пользователя есть разрешение на выполнение действия или другую подготовку. Существует также `modRestController.afterRead()`, `modRestController.afterPost()`, `modRestController.afterPut()` и `modRestController.afterDelete()` для выполнения действий после завершения действия. Этим методам передается массив по ссылке, который содержит объект, который должен быть возвращен.
+Эти методы по умолчанию делают то, что вы ожидаете от них, с некоторой разумной обработкой ошибок и - по большей части - не нуждаются в настройке. Существуют также такие методы, как `modRestController.beforePost()`, `modRestController.beforePut()`, `modRestController.beforeDelete()`, которые позволяют предотвратить действие (создание, обновление или удаление объекта соответственно) путем возврата false. Обсуждаемый объект доступен через `$this->object`, так что вы можете убедиться, что у пользователя есть разрешение на выполнение действия или другую подготовку. Существует также `modRestController.afterRead()`, `modRestController.afterPost()`, `modRestController.afterPut()` и `modRestController.afterDelete()` для выполнения действий после завершения действия. Этим методам передается массив по ссылке, который содержит объект, который должен быть возвращен.
