@@ -6,18 +6,18 @@ _old_uri: 2.x/developing-in-modx/basic-development/plugins
 
 ## Что такое плагин?
 
-Plugins are similar to Snippets in that they are bits of PHP code that have access to the MODx API. The big difference, however, is in *when* the code executes. You put Snippets inside of a page or inside a template and they run when the page is viewed, whereas Plugins are set to execute during certain system events, e.g. saving a Chunk, or emptying the cache. So when a given event "fires", any Plugin "listening" for that event is executed. Once the Plugin's code has executed, control returns to the point after the spot where the System Event was triggered.
+Плагины похожи на сниппеты тем, что они представляют собой кусочки кода PHP, которые имеют доступ к API MODX. Наибольшая разница, однако, заключается в том, *когда* выполняется код. Вы помещаете сниппеты внутри страницы или внутри шаблона, и они запускаются при просмотре страницы, тогда как плагины настроены на выполнение во время определенных системных событий, например сохранение чанка или очистка кеша. Поэтому, когда данное событие «срабатывает», любой плагин «прослушивает» это событие. После выполнения кода плагина управление возвращается к точке после того места, где было инициировано системное событие.
 
-**Other CMSs**
-Every CMS uses some concept of "plugin", but the exact nomenclature may differ. In WordPress, for example, plugins are "hooked" to events called "actions" or "filters".
+**Другие CMS**
+Каждая CMS использует некое понятие «плагин», но точная номенклатура может отличаться. Например, в WordPress плагины «подключаются» к событиям, называемым «действиями» или «фильтрами».
 
-Since they execute during various events, Plugins aren't limited to front-end processing. Many events are triggered by events that take place only within the MODx Manager. There is a list of MODx System Events [here](http://wiki.modxcms.com/index.php/System_Events "MODx System Events").
+Поскольку они выполняются во время различных событий, плагины не ограничиваются обработкой внешнего интерфейса. Многие события запускаются событиями, которые происходят только в менеджере MODX. Список системных событий MODX можно посмотреть [здесь{/ a0}.](http://wiki.modxcms.com/index.php/System_Events "MODx System Events")
 
-Any closing PHP tag ?> will be stripped from your plugin code when it is saved. It's unnecessary (and unwanted) because the plugin code will end up inside other PHP code when executed.
+Любой закрывающий тег PHP ?> будет удален из кода вашего плагина при его сохранении. Это не нужно (и нежелательно), потому что код плагина при запуске будет находиться внутри другого кода PHP.
 
 ## Модель события
 
-MODx invokes System Events across its code processes to allow you to modify core functionality without hacking the core. These System Events can have any number of Plugins attached to them, and will execute each Plugin in rank according to its priority (lowest numbers first).
+MODX вызывает системные события в своих процессах кода, чтобы вы могли изменять функциональность ядра без взлома ядра. К этим системным событиям может быть прикреплено любое количество плагинов, и они будут запускать каждый плагин в соответствии с его приоритетом (сначала самые низкие номера)
 
 ## Обработка события
 
@@ -29,16 +29,16 @@ MODx invokes System Events across its code processes to allow you to modify core
 $eventName = $modx->event->name;
 ```
 
-The code for a Plugin listening to more than one event looks like this:
+Код для плагина, прослушивающего более одного события, выглядит следующим образом:
 
 ```php
 $eventName = $modx->event->name;
 switch($eventName) {
     case 'OnWebPageInit':
-        /* do something */
+        /* сделать что-то */
         break;
     case 'OnWebPagePrerender':
-        /* do something else */
+        /* сделать что-то другое */
         break;
 }
 ```
@@ -47,59 +47,59 @@ switch($eventName) {
 
 Плагины могут быть использованы для различных целей, ниже приведены несколько примеров:
 
-### Message the User:
+### Сообщение пользователю:
 
-**Description:** Send a custom message to the user as they create/edit a page... a custom header.
-**System Events:** OnDocFormPrerender
+**Описание:** Отправьте сообщение пользователю при создании/редактировании страницы.
+**Системные события:** OnDocFormPrerender
 
 ```php
-$modx->event->output('Hi there user!');
+$modx->event->output('Привет, пользователь!');
 ```
 
 ---
 
 ### Пользовательская проверка
 
-**Description:** Do some custom validation on saving a page resource
-**System Events:** OnBeforeDocFormSave
+**Описание:** Выполните некоторую пользовательскую проверку при сохранении ресурса страницы.
+**Системные события:** OnBeforeDocFormSave
 
 ```php
-// Do some logical stuff.... if validation failed:
-$modx->event->output('Something did not validate!');
-return "This goes to the logs";
+// Сделать какую-нибудь логичную штуку... если проверка не удалась:
+$modx->event->output('Что-то не прошло проверку!');
+return "Этот текст пойдет в логи";
 ```
 
-The trick here is that what you want to message the user has to be passed to the **$modx->event->output()** function; any text you want to write to the logs can simply be returned by the plugin. If you pass validation, simply return null.
+Хитрость в том, что то, что вы хотите сообщить пользователю, должно быть передано функции **$modx->gt;output()**; любой текст, который вы хотите записать в журналы, может быть просто возвращен плагином. Если вы прошли валидацию, просто верните ноль.
 
-**No HTML Allowed**
-The output you set in **$modx->event->output()** must not contain any HTML! Use plain text only! This is because the message is passed to the user via a Javascript modal window.
+**HTML код не разрешен**
+Выходные данные, которые вы устанавливаете в **$modx->gt;event->output()**, не должны содержать HTML! Используйте только простой текст! Это связано с тем, что сообщение передается пользователю через модальное окно JavaScript.
 
 Возвращаемое значение должно быть строкой. Если возвращаемое значение будет числом, объедините его с пустой строкой.
 
 ---
 
-### Word Filter
+### Фильтр слов
 
-**Description:** Filter words from a document before it's displayed on the web
-**System Events:** OnWebPagePrerender
+**Описание:** Отфильтруйте слова из документа перед его отображением в Интернете.
+**Системные события:** OnWebPagePrerender
 
 ```php
-$words = array("snippet", "template"); // words to filter
-$output = &$modx->resource->_output; // get a reference to the output
-$output = str_replace($words,"<b>[filtered]</b>",$output);
+$words = array("snippet", "template"); // слова для фильтрации
+$output = &$modx->resource->_output; // получить ссылку для вывода
+$output = str_replace($words,"<b>[отфильтровано]</b>",$output);
 ```
 
 ---
 
-### Page-Not-Found Redirector:
+### Перенаправитель страницы "Не найдено":
 
-**Description:** Redirects a user to selected document and sends a message
-**System Events:** OnPageNotFound
-**System Settings:**
+**Описание:** Перенаправляет пользователя на выбранный документ и отправляет сообщение.
+**Системные события:** OnPageNotFound
+**Системные настройки:**
 
-- *pnf.page*: Error Resource ID
-- *pnf.mailto*: Mail To Address
-- *pnf.mailfrom*: Mail From Address
+- *pnf.page*: Идентификатор ресурса (ID)
+- *pnf.mailto*: E-mail адрес получателя
+- *pnf.mailfrom*: E-mail адрес отправителя
 
 ```php
 if ($modx->event->name == 'OnPageNotFound') {
@@ -109,10 +109,10 @@ if ($modx->event->name == 'OnPageNotFound') {
      } else {
          $mailto = $modx->getOption('pnf.mailto');
          if (!empty($mailto)) {
-            // send a message to a local account
+            // отправить сообщение на локальный профиль
             $resourceId = $modx->resource->get('id');
-            $subject = 'Page not found';
-            $body = 'Someone tried to access document id '.$resourceId;
+            $subject = 'Страница не найдена';
+            $body = 'Кто-то пытался зайти на страницу с ID '.$resourceId;
             $modx->getService('mail', 'mail.modPHPMailer');
             $modx->mail->set(modMail::MAIL_BODY, $body);
             $modx->mail->set(modMail::MAIL_FROM, $modx->getOption('pnf.mailfrom'));
