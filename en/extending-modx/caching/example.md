@@ -3,12 +3,7 @@ title: "Basic Usage"
 _old_id: "1381"
 _old_uri: "2.x/advanced-features/caching/caching-tutorial-basic-snippets"
 ---
-
-This page is designed to demonstrate some basic principles about the xPDO/MODX cache manager and how it can be used to help you write more effective Snippets.
-
-## Create Our Snippets
-
-### Snippet One: Write to Cache
+msdhvajsdhvjasd hsdkjvhaskjdv dskjhvalkjsdhv alskdjvhsad lkjvhskjldhv dshvkjahsdv lkjashkvlj dshvjaskdhvljkasdlvhavgsjd vaghsdjvgahdmvgajkhdvgasjhvng sadvgsdjhbvahjgvhjaks dvgasdhkjvgsda
 
 Here's our first Snippet, named **cacheWrite**:
 
@@ -27,7 +22,6 @@ This snippet simple stores the current timestamp to a cache key named "my\_cache
 [[writeCache]]
 ```
 
-### Snippet Two: Read from Cache
 
 Next, we will create simple snippet that will _read_ values from the cache, named **readCache**:
 
