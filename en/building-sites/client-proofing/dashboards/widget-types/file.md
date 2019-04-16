@@ -9,9 +9,6 @@ The File Dashboard Widget Type runs a file on the filesystem, which can either:
 - Return the output of the file, rendering it in the content pane of the widget
 - Return the name of a class that extends modDashboardWidgetInterface, a MODX-provided abstract class, that has a render() method that will return the output to render to the content pane of the widget
 
-## Usage
-
-Simply place the name of the file in the content textarea of the widget. You can use the following placeholders to reference the widget path:
 
 - \[\[++base\_path\]\]
 - \[\[++core\_path\]\]
