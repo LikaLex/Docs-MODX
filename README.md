@@ -5,7 +5,6 @@ This repository contains the MODX documentation in Markdown format. This is part
 
 This new documentation is currently available from [docs.modx.org](https://docs.modx.org)
 
-## New documentation goals
 
 The new documentation (content) should allow:
 
