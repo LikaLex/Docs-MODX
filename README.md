@@ -18,7 +18,7 @@ The beauty of markdown is that it is independent from specific technologies or t
 
 ## Discussion
 
-Please feel free to open an issue for bad markdown conversions or discussion points. There is also a relevant #documentation channel on the [MODX Community Slack](https://modx.org).
+Please feel free to open an issue for bad markdown conversions Discussion or discussion points. There is also a relevant #documentation channel on the [MODX Community Slack](https://modx.org).
 
 ## The Conversion (Old)
 
