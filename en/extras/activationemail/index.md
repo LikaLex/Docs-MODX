@@ -12,14 +12,7 @@ Emails are sent whenever the user's activation status changes, either by editing
 
 In the email message, the user may be addressed by username or full name and can be sent a link to any page on the site.
 
-## Package Information
-
-- Downloads: 3,877
-- License: GPLv2
-- Requires: Revolution 2.0.x or greater
-- Supports: mysql,sqlsrv
-
-## History
+gufjhfjfluouyfj
 
 - Author: Bob Ray [Bob's Guides](http://bobsguides.com)
 
