@@ -12,9 +12,7 @@ In addition to this documentation site, the [MODX Community](https://community.m
 
 Experienced [MODX Professionals](http://modx.com/professionals) and [vendor-backed commercial support](http://modx.com/support/) options are also available, so no matter your needs and requirements - you're covered.
 
-## Getting started
 
-This documentation site is a thorough Reference for all things MODX, and also includes Guides and Tutorials to help you get started quickly and easily. Highlights include:
 
 - The [Video Quick-Start Series](building-sites/integrating-templates/video-quick-start) of tutorials
 - A guide on [Making Sites with MODX](building-sites)
@@ -46,9 +44,6 @@ MODX Extras extend the core functionality of the MODX software. Other CMSs refer
 - [Download Extras](http://modx.com/extras/?product=revolution)
 - [Learn more about installing Extras](building-sites/extras)
 
-## xPDO
-
-xPDO is the object-relational bridge (ORB) that powers MODX. If you know what that means, or you're the adventurous type, the following is for you:
 
 ### Quick Links
 
