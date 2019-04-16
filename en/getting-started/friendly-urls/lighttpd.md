@@ -4,13 +4,14 @@ _old_id: "169"
 _old_uri: "2.x/getting-started/installation/basic-installation/lighttpd-guide"
 ---
 
+khjvkjhvkhjvjhvkjhnvkjhnvb
+bhjvghgkv
+
+klbhjvjh 
+
 ## Lighttpd Guide for Setup and Friendly URLs.
 
-- This is still a work in progress, and currently only covers the URL rewriting aspect.
-- This guide assumes you already have a working lighttpd, mysql, and PHP installation.
-- This guide only covers proper settings and the use of friendly URL Rewriting.
-
-### Friendly URL Setup
+jhvkgcjhlfgkfkhgf
 
 lighttpd does not use the same system, or even same idea as Apache does for URL rewriting. All URL rewriting is done in the lighttpd.conf file
 
