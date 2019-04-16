@@ -27,7 +27,6 @@ $git checkout -b myFeatureBranchName 2.x
 
  If you have not fetched the latest changes from upstream and merged them locally, you should [do that first](#GitFAC%28FrequentlyAccessedCommands%29-HowdoIgetandkeepmylocaldevelopbranchinsync%3F).
 
-### Is there a naming convention for feature branches?
 
  If you are making changes related to a ticket in the issue tracker (please file a ticket for any bugs first if there isn't one) then you could name your branch "issue-xxxx" where xxxx is the issue number from the bug tracker.
 
@@ -51,7 +50,6 @@ git checkout -b myAwesomeFeature 2.x
 echo 'Yes'
 ```
 
-### How do I keep my feature branch in sync with the upstream develop branch?
 
  If you're working on a feature that's taking a while, you may find it beneficial to keep in sync with upstream changes. Git allows you to "replay" your commits over top of changes in the develop branch using the rebase command.
 
